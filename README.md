@@ -1,4 +1,4 @@
-# template-python
+# Azure Pages Router
 
 ![Build](https://github.com/amorim-cleison/template-python/workflows/Build/badge.svg)
 ![Code Quality](https://github.com/amorim-cleison/template-python/workflows/Code%20Quality/badge.svg)
