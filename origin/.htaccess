@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteBase /~cca5/
+RewriteRule ^index\.php＄ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ /~cca5/index.php [QSA,L]
