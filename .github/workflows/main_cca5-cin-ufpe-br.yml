@@ -48,6 +48,10 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: poetry install
+
+      - name: Generate 'requirements.txt'
+        shell: bash
+        run: poetry export --without-hashes --format=requirements.txt > requirements.txt
                 
       # Optional: Add step to run tests here
 
