@@ -65,6 +65,6 @@ jobs:
           app-name: 'cca5-cin-ufpe-br(test-deployment-slot)'
           slot-name: 'test-deployment-slot'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_185998bba5cc497dbd30042956d05164 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d108e5af09804c828cf9fbd6a932f3a1 }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
