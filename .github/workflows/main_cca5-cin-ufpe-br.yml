@@ -33,29 +33,33 @@ jobs:
         with:
           poetry-version: ${{ env.POETRY_VERSION }}
 
-      - name: Configure Poetry
-        shell: bash
-        run: |
-          # poetry config virtualenvs.in-project true
-          poetry config virtualenvs.path '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages'
+      # - name: Configure Poetry
+      #   shell: bash
+      #   run: |
+      #     poetry config virtualenvs.path '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages'
 
-      - name: Set up cache
-        uses: actions/cache@v3
-        id: cache
-        with:
-          path: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages"
-          key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+      # - name: Set up cache
+      #   uses: actions/cache@v3
+      #   id: cache
+      #   with:
+      #     path: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages'
+      #     key: venv-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Ensure cache is healthy
-        if: steps.cache.outputs.cache-hit == 'true'
-        shell: bash
-        run: timeout 10s python -m poetry run pip --version || rm -rf .venv
+      # - name: Ensure cache is healthy
+      #   if: steps.cache.outputs.cache-hit == 'true'
+      #   shell: bash
+      #   run: timeout 10s python -m poetry run pip --version || rm -rf .venv
 
       - name: Install dependencies
         shell: bash
         run: |
-          poetry export --without-hashes --format=requirements.txt > requirements.txt
-          cp -R 'requirements.txt' '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt'
+          mkdir -p '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          poetry export --without-hashes --format=requirements.txt > '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt'
+          
+          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --target="${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages"
+          popd
 
       # Optional: Add step to run tests here
 
