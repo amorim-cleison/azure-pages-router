@@ -28,10 +28,10 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Setup Poetry ${{ env.PYTHON_VERSION }}
+      - name: Setup Poetry ${{ env.POETRY_VERSION }}
         uses: abatilo/actions-poetry@v2
         with:
-          poetry-version: ${{ env.PYTHON_VERSION }}
+          poetry-version: ${{ env.POETRY_VERSION }}
 
       - name: Configure Poetry
         shell: bash
