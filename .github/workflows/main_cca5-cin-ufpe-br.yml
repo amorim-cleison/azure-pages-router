@@ -12,7 +12,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: "cca5-cin-ufpe-br"
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: "router/" # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "./router/" # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: "3.9" # set this to the python version to use (supports 3.6, 3.7, 3.8)
   POETRY_VERSION: "1.4"
 
