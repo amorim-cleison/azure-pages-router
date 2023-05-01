@@ -11,33 +11,39 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'router/' # set this to the path to your web app project, defaults to the repository root
-  PYTHON_VERSION: '3.9' # set this to the python version to use (supports 3.6, 3.7, 3.8)
+  AZURE_FUNCTIONAPP_NAME: "cca5-cin-ufpe-br"
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "router/" # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: "3.9" # set this to the python version to use (supports 3.6, 3.7, 3.8)
+  POETRY_VERSION: "1.4"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Python version
-        uses: actions/setup-python@v1
+      - name: Setup Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Setup Poetry
-        uses: abatilo/actions-poetry@v2.0.0
+      - name: Setup Poetry ${{ env.PYTHON_VERSION }}
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ env.PYTHON_VERSION }}
 
       - name: Configure Poetry
         shell: bash
-        run: poetry config virtualenvs.in-project true
+        run: |
+          # poetry config virtualenvs.in-project true
+          poetry config virtualenvs.path '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages'
 
       - name: Set up cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: cache
         with:
-          path: .venv/
+          path: "${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/python_packages/lib/site-packages"
           key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy
@@ -47,43 +53,39 @@ jobs:
 
       - name: Install dependencies
         shell: bash
-        run: poetry install
+        run: |
+          poetry export --without-hashes --format=requirements.txt > requirements.txt
+          cp -R 'requirements.txt' '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt'
 
-      - name: Generate 'requirements.txt'
-        shell: bash
-        run: poetry export --without-hashes --format=requirements.txt > requirements.txt
-                
       # Optional: Add step to run tests here
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: python-app
-          path: |
-            . 
-            !.venv/
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-function.outputs.webapp-url }}
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: python-app
-          path: .
+          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
-      - name: 'Deploy to Azure Functions'
+      - name: "Deploy to Azure Functions"
         uses: Azure/functions-action@v1
         id: deploy-to-function
         with:
-          app-name: 'cca5-cin-ufpe-br'
-          slot-name: 'Production'
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BB72755A991646088F6C929303311F69 }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
