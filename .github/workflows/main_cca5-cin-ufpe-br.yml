@@ -56,10 +56,10 @@ jobs:
           mkdir -p '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           poetry export --without-hashes --format=requirements.txt > '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/requirements.txt'
           
-          pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt --target=".python_packages/lib/site-packages"
-          popd
+          # pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          # python -m pip install --upgrade pip
+          # pip install -r requirements.txt --target=".python_packages/lib/site-packages"
+          # popd
 
       # Optional: Add step to run tests here
 
@@ -92,4 +92,4 @@ jobs:
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BB72755A991646088F6C929303311F69 }}
           # scm-do-build-during-deployment: true
-          # enable-oryx-build: true
+          enable-oryx-build: true
