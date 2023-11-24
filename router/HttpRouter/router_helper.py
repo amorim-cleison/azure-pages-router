@@ -24,7 +24,7 @@ def find_route(originUrl):
 
 def loadUrlMapping(path):
     try:
-        with open(path) as f:
+        with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         raise Exception("Failed to read URL mapping file", e)
