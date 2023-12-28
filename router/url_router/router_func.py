@@ -69,6 +69,7 @@ class RouterFunction():
 
 
     def __read_as_post(self, req):
+        originUrl = None
         logging.info(f"Trying to read '{ORIGIN_URL_PARAM}' from POST parameters...")
         
         try:
