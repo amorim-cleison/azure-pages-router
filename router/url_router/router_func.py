@@ -1,5 +1,6 @@
-import logging
 import azure.functions as func
+import json
+import logging
 from .router_utils import find_route
 from urllib.parse import urlparse
 
@@ -83,7 +84,7 @@ class RouterFunction():
 
     def __process_response(self, targetUrl):
         return func.HttpResponse(
-            body={ 'url': targetUrl }, 
+            body=json.dumps({ 'url': targetUrl }), 
             mimetype="application/json", 
             status_code=302)
 
