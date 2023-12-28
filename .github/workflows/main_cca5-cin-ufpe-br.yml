@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Python version
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -70,14 +70,14 @@ jobs:
         run: unzip release.zip     
         
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: Azure/login@v1.5.1
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C8510ABCC4C04405A8DC41045DF14722 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B7D4203A592E4BCE903BAAD58CB5A8BC }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A549470CF2EB482796C953069D35A79C }}
 
       - name: 'Deploy to Azure Functions'
-        uses: Azure/functions-action@v1
+        uses: Azure/functions-action@v1.5.1
         id: deploy-to-function
         with:
           app-name: 'cca5-cin-ufpe-br'
