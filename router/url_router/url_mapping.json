@@ -10,7 +10,7 @@
   "asl-skeleton3d": "asl-datasets",
   "asl-skeleton3d/download": "https://doi.org/10.5281/zenodo.5484110",
 
-  "asllvd-skeleton": "http://cin.ufpe.br/~cca5/asllvd-skeleton/index.html" ,
+  "asllvd-skeleton": "http://cin.ufpe.br/~cca5/asllvd-skeleton/index.html",
   "asllvd-skeleton-20": "http://cin.ufpe.br/~cca5/asllvd-skeleton-20/index.html",
 
   "sl-nlp": "https://github.com/amorim-cleison/sign-language-nlp",

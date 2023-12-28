@@ -1,23 +1,23 @@
-from urllib.parse import urlparse
+from glob import glob
+from os import path
 import json
 import re
 
 ROOT = "~cca5"
-MAPPING_FILE = "./HttpRouter/url_mapping.json"
+MAPPING_FILE = "url_mapping.json"
 FALLBACK_ROUTE = "<fallback>"
 
 
 def find_route(originUrl):
-    parsedUrl = urlparse(originUrl)
-    path = parsedUrl.path
+    path = originUrl.path
 
     # Normalize path and target mapping:
     path = normalizePath(path, removeRoot=True)
 
     # Locate target for path:
-    urlMapping = loadUrlMapping(MAPPING_FILE)
-    urlMapping = normalizeMapping(urlMapping)
-    target = findTargetByPath(path, urlMapping)
+    mapping_path = resolvePathToMappingFile(MAPPING_FILE)
+    url_mapping = loadUrlMapping(mapping_path)
+    target = findTargetByPath(path, url_mapping)
 
     return target
 
@@ -25,30 +25,39 @@ def find_route(originUrl):
 def loadUrlMapping(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
+            json_mapping = json.load(f)
+            return normalizeMapping(json_mapping)
     except Exception as e:
         raise Exception("Failed to read URL mapping file", e)
+
+
+def resolvePathToMappingFile(filename):
+    paths = glob(f'./**/{filename}', recursive=True)
+
+    if not paths:
+        raise Exception(f"Could not find mapping file '{filename}'")
+    return path.realpath(paths[0])
 
 
 def normalizeMapping(mapping):
     return {
         normalizePath(path, removeRoot=False): target.lower()
-        for (path, target) in mapping.items()
+        for (path, target) in mapping.items() if path
     }
 
 
-def findTargetByPath(path, urlMapping):
+def findTargetByPath(path, url_mapping):
     _path = path
     target = None
 
     # Navigate routes to final URL:
-    while _path in urlMapping:
-        target = urlMapping[_path]
+    while _path in url_mapping:
+        target = url_mapping[_path]
         _path = target
 
     # Fallback case, if configured:
-    if (not target) and (FALLBACK_ROUTE in urlMapping):
-        target = urlMapping[FALLBACK_ROUTE]
+    if (not target) and (FALLBACK_ROUTE in url_mapping):
+        target = url_mapping[FALLBACK_ROUTE]
     return target
 
 
