@@ -30,7 +30,7 @@ class RouterFunction():
                 logging.info(f"Processing target route...")
                 targetUrl = find_route(originUrl)
             else:
-                raise Exception(f"Parameter '{ORIGIN_URL_PARAM}' was not provided")
+                raise MissingArgumentError(f"Parameter '{ORIGIN_URL_PARAM}' was not provided")
 
             # Process response:
             return self.__process_response(targetUrl)
@@ -44,7 +44,7 @@ class RouterFunction():
         try:
             return urlparse(originUrl)
         except Exception as e:
-            raise Exception(f"Invalid URL provided in the '{ORIGIN_URL_PARAM}' parameter") from e
+            raise InvalidArgumentError(f"Invalid URL provided in the '{ORIGIN_URL_PARAM}' parameter") from e
 
 
     def __read_as_get(self, req):
@@ -65,12 +65,24 @@ class RouterFunction():
 
 
     def __process_response(self, targetUrl, error=None):
+        # Error processing:
         if error:
-            return func.HttpResponse(f"Failed to resolve target URL: {error}", status_code=500)
+            if type(error) in (MissingArgumentError, InvalidArgumentError):
+                return func.HttpResponse(str(error), status_code=400)
+            else:
+                return func.HttpResponse(f"Failed to resolve target URL: {error}", status_code=500)
         
+        # Valid response:
         elif targetUrl:
-            # Valid response:
             return func.HttpResponse(targetUrl, headers={'Location': targetUrl}, status_code=302)
 
+        # Other responses:
         else:
             return func.HttpResponse("Could not find route for the URL requested", status_code=404)
+
+
+class InvalidArgumentError(ValueError):
+    pass
+
+class MissingArgumentError(ValueError):
+    pass
