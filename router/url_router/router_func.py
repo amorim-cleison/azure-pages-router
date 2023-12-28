@@ -82,7 +82,7 @@ class RouterFunction():
 
 
     def __process_response(self, targetUrl):
-        return func.HttpResponse(targetUrl, headers={'Location': targetUrl}, status_code=302)
+        return func.HttpResponse(body={ 'url': targetUrl }, status_code=302)
 
 
     def __process_error_response(self, error):
