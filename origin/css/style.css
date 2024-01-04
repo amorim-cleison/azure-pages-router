@@ -1,0 +1,22 @@
+html,body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Calibri", sans-serif; 
+}
+
+.w3-sidebar {
+  z-index: 3;
+  width: 250px;
+  top: 43px;
+  bottom: 0;
+  height: inherit;
+}
+
+div .disclaimer {
+  border: 1px black solid;
+  padding: 3px 8px;
+  background-color: #fbf3e9;
+}
+
+div .disclaimer p {
+  padding: 0px;
+  margin: 6px 0px;
+}

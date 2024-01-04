@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ASLLVD-Skeleton</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a href="../asllvd-skeleton/index.html" class="w3-bar-item w3-button w3-theme-l1">ASLLVD-Skeleton</a>
+      <a href="../asllvd-skeleton-20/index.html" class="w3-bar-item w3-button w3-theme-l1">ASLLVD-Skeleton-20</a>
+      <a href="../st-gcn-sl/weights/index.html" class="w3-bar-item w3-button w3-theme-l1">ST-GCN-SL Pre-trained Weights</a>
+    </div>
+  </div>
+
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content -->
+  <div class="w3-main">
+
+    <div class="w3-row w3-padding-64">
+      <div class="w3-container">
+        <h1 class="w3-text-teal">ASLLVD-Skeleton</h1>
+        <p>ASLLVD-Skeleton is a skeleton estimation dataset for sign language that is based on the <a href="http://www.bu.edu/av/asllrp/dai-asllvd.html">American
+            Sign Language Lexicon Video Dataset (ASLLVD)</a>.
+
+            <!-- ASLLVD disclaimer: -->
+            <div class="disclaimer">
+              <p>
+                An updated version of the ASLLVD dataset (with corrections and revisions) – along with other linguistically annotated citation-form video data – is available for direct download from <a href="https://dai.cs.rutgers.edu/dai/s/signbank">https://dai.cs.rutgers.edu/dai/s/signbank</a>.
+              </p>
+            </div>
+        </p>
+        <p>
+            It was created using the <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose">OpenPose</a>
+          library and by following the steps described below. The output of each of the main steps is available below
+          for use in future works.
+          <div>
+            <img src="../img/dataset_preprocessing.png" height="50px" />
+          </div>
+        </p>
+        <p>
+          Further details on the creation of this dataset can be found in the paper <a href="http://www.cin.ufpe.br/~cca5/st-gcn-sl/paper">Spatial-Temporal
+            Graph Convolutional Networks for Sign Language Recognition</a>. The source code can be downloaded by
+          <a href="http://cin.ufpe.br/~cca5/st-gcn-sl">clicking here</a>.
+        </p>
+        <p>
+          If you have any questions, please feel free
+          to contact me at <a href="mailto:cca5@cin.ufpe.br">cca5@cin.ufpe.br</a>.
+        </p>
+      </div>
+
+
+      <div class="w3-container" id="acquire-samples">
+        <h3 class="w3-text-teal">1. Acquire samples</h3>
+        <p>
+          The first step consists in obtaining the videos that make up the ASLLVD, in order to reconstitute the dataset
+          and make feasible the later stages. A metadata file contained in it was used to guide this process. At this
+          moment, only the videos captured by the frontal camera were considered, once they simultaneously contemplates
+          movements of the trunk, hands and face of individuals.
+        </p>
+      </div>
+
+      <div class="w3-container" id="segment-samples">
+        <h3 class="w3-text-teal">2. Segment samples</h3>
+        <p>
+          Since each file in ASLLVD corresponds to a section where multiple signs were recorded per individual, in this
+          step they were segmented to generate a file for each sign with their respective labels.
+          The output of this step consists of small videos with a few seconds and looking similar to
+          the one shown in figure below.
+          
+          <!-- ASLLVD disclaimer: -->
+          <div class="disclaimer">
+            <p>
+              <b>Extremely important:</b> The ASLLVD video data are subject to <b>Terms of Use</b>: <a href="http://www.bu.edu/asllrp/signbank-terms.pdf">http://www.bu.edu/asllrp/signbank-terms.pdf</a>.
+            </p>
+            <p>
+              By downloading these video files, you are agreeing to respect these conditions. In particular, NO FURTHER REDISTRIBUTION OF THESE VIDEO FILES is allowed.
+            </p>
+          </div>
+
+          <p>
+            <a href="https://drive.google.com/open?id=13Zia41BJn2ZBiduRyZxvQ1KvRdaZ8hjO">Click here</a> to download the
+            output of this step.
+          </p>
+          <p>
+            <img src="../img/sign_original.PNG" height="180px" />
+          </p>
+        </p>
+      </div>
+
+      <div class="w3-container" id="estimate-skeletons">
+        <h3 class="w3-text-teal">3. Estimate skeletons</h3>
+        <p>
+          At this stage the skeletons of the individuals present in the segmented videos were estimated and a total of
+          130 keypoints of the body, hands and face were extracted by OpenPose. For more details on these keypoints,
+          please refer to <a href="https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/output.md">this
+            link</a>.
+          The output of this process consists of a JSON file containing the estimated coordinates and the degree of
+          confidence of that estimate for each point. This information is described within two sections: "score" and
+          "pose". The figure below illustrates an example of this JSON.
+          <p>
+            <a href="https://drive.google.com/open?id=1-5mAqGk2-cMmFzW1uSyzvhb_IWbGzpKc">Click here</a> to download the
+            output of this step.
+          </p>
+          <p>
+            <img src="../img/openpose_coordinates.PNG" height="300px" />
+          </p>
+        </p>
+      </div>
+
+      <div class="w3-container" id="filter-keypoints">
+        <h3 class="w3-text-teal">4. Filter keypoints</h3>
+        <p>
+          In this step, the 27 keypoints shown in the figure below are filtered from the keypoints estimated by
+          OpenPose. They refer to the shoulders, arms and hands. The output of this step is similar to the one obtained
+          in the previous one, but with fewer coordinates.
+
+          <p>
+            <a href="https://drive.google.com/open?id=153r39XtxKkeMcRLngm9H0QKmQ2d2RwM0">Click here</a> to download the output of this step.
+          </p>
+          <p>
+            <img src="../img/filtered_keypoints_body.png" height="200px" />
+            <img src="../img/filtered_keypoints_hand.png" height="200px" />
+          </p>
+        </p>
+      </div>
+
+      <div class="w3-container" id="split-dataset">
+        <h3 class="w3-text-teal">5. Split dataset</h3>
+        <p>
+          At this point, the dataset with filtered points is divided into smaller subsets for training and testing. The
+          output of this step consists of two directories containing the JSON samples defined for each subset,
+          respectively.
+          The
+          following ratio was used:
+          <ul>
+            <li>80% for training;</li>
+            <li>20% for testing;</li>
+          </ul>
+
+          <p>
+            <a href="https://drive.google.com/open?id=1MHp4ZBQ0g4o9CLegVec6vyGiJfyfSvTz">Click here</a> to download the
+            output of this step.
+          </p>
+        </p>
+      </div>
+
+      <div class="w3-container" id="normalize-serialize">
+        <h3 class="w3-text-teal">6. Normalize and serialize</h3>
+        <p>
+          Finally, the last step is to normalize and serialize the samples to make them compatible with the reading
+          format used in the paper presented above. Standardization aims to make the length of all samples uniform by
+          applying the repetition of their frames sequentially to the complete completion of a set fixed number of
+          frames. The number of fixed frames adopted here is 63 (which, at a rate of 30 FPS, corresponds to a video
+          with an approximate duration of 2 seconds). Serialization, in turn, consists of preloading the normalized
+          samples of the subsets created above to convert them into physical Python files, which contain their
+          representations in memory. For each of the subsets divided in the previous step, two physical files are
+          generated: one
+          containing the samples and another containing the labels for those samples.
+
+          <p>
+            <a href="https://drive.google.com/open?id=1fSISVRtC6-wrRaPpjWXbK77ZchzWVFNe">Click here</a> to download the
+            output of this step.
+          </p>
+        </p>
+      </div>
+    </div>
+
+    <div class="w3-container">
+      <p><em>If you encounter any problems downloading the above files, <a href="https://drive.google.com/open?id=1ycwMe5ptk8EvZveXgwpZv6ObVgkpPZ2x">click
+            here</a> to explore the files directory.</em>
+      </p>
+    </div>
+
+    <!-- END MAIN -->
+  </div>
+
+  <div class="w3-container w3-theme-l1">
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div>
+</body>
+
+</html>

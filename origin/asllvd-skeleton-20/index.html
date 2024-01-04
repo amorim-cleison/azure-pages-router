@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ASLLVD-Skeleton-20</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="w3-top">
+    <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
+      <a href="../asllvd-skeleton/index.html" class="w3-bar-item w3-button w3-theme-l1">ASLLVD-Skeleton</a>
+      <a href="../asllvd-skeleton-20/index.html" class="w3-bar-item w3-button w3-theme-l1">ASLLVD-Skeleton-20</a>
+      <a href="../st-gcn-sl/weights/index.html" class="w3-bar-item w3-button w3-theme-l1">ST-GCN-SL Pre-trained Weights</a>
+    </div>
+  </div>
+
+  <!-- Overlay effect when opening sidebar on small screens -->
+  <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+  <!-- Main content -->
+  <div class="w3-main">
+
+    <div class="w3-row w3-padding-64">
+      <div class="w3-container">
+        <h1 class="w3-text-teal">ASLLVD-Skeleton-20</h1>
+        <p>The <b>ASLLVD-Skeleton-20</b> is a subset of the <a href="../asllvd-skeleton/index.html">ASLLVD-Skeleton</a>
+          database and is composed of 20 selected
+          signs detailed in the table below.
+
+          <table class="w3-table-all w3-bodered">
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Selected signs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  ASLLVD
+                </td>
+                <td>
+                  adopt, again, all, awkward, baseball, behavior, can, chat,
+                  cheap, cheat, church, coat, conflict, court, deposit, depressed,
+                  doctor, don’t want, dress, enough
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+        <p>
+          The result of each step is similar to that obtained in creating the ASLLVD-Skeleton, but only for the above
+          signs. For more details, <a href="../asllvd-skeleton/index.html">click here</a>.
+
+          <div>
+            <img src="../img/dataset_preprocessing.png" height="50px" />
+          </div>
+        </p>
+        <p>
+          Further details on the creation of this dataset can be found in the paper <a href="http://www.cin.ufpe.br/~cca5/st-gcn-sl/paper">Spatial-Temporal
+            Graph Convolutional Networks for Sign Language Recognition</a>. If you have any questions, please feel free
+          to contact me at <a href="mailto:cca5@cin.ufpe.br">cca5@cin.ufpe.br</a>.
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">1. Acquire samples</h3>
+        <p>
+          <a href="../asllvd-skeleton/index.html#acquire-samples">Click here</a> for more details on this step.
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">2. Segment samples</h3>
+
+        <!-- ASLLVD disclaimer: -->
+        <div class="disclaimer">
+          <p>
+            Taken from the ASLLVD dataset. See <a href="http://www.bu.edu/av/asllrp/dai-asllvd.html">American Sign Language Lexicon Video Dataset (ASLLVD)</a> and for direct download of the most recent ASLLVD data (with corrections and revisions since the original release in 2012), access <a href="https://dai.cs.rutgers.edu/dai/s/signbank">https://dai.cs.rutgers.edu/dai/s/signbank</a>.
+          </p>
+          <p>
+            <b>Extremely important:</b> The ASLLVD video data are subject to <b>Terms of Use</b>: <a href="http://www.bu.edu/asllrp/signbank-terms.pdf">http://www.bu.edu/asllrp/signbank-terms.pdf</a>.
+          </p>
+          <p>
+            By downloading these video files, you are agreeing to respect these conditions. In particular, NO FURTHER REDISTRIBUTION OF THESE VIDEO FILES is allowed.
+          </p>
+        </div>
+
+        <p>
+          <a href="https://drive.google.com/open?id=18ZcRZnLXIgXbKG-ZwHYiTd9igU_4TiGL">Click here</a> to download the
+          output for the 20 selected signs.
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">3. Estimate skeletons</h3>
+        <p>
+          <a href="https://drive.google.com/open?id=1nKoXNG8ReFCx4rOshabbNg_mywoJPUsp">Click here</a> to download the
+          output for the 20 selected signs.
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">4. Filter keypoints</h3>
+        <p>
+          <a href="https://drive.google.com/open?id=14a1LSo6oJHuEUSWuLp82-UGVdiFWYi2D">Click here</a> to download the
+          output for the 20 selected signs.
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">5. Split dataset</h3>
+        <p>
+          In order to make the division more suitable for the few samples of the above 20 signals, the following ratio
+          was applied in the division of this subset
+          <ul>
+            <li>67% for training;</li>
+            <li>33% for testing;</li>
+          </ul>
+
+          <p>
+            <a href="https://drive.google.com/open?id=11Jg5Jr_FaKReJsNOuEsizyAP22T_9JkT">Click here</a> to download the
+            output of this step.
+          </p>
+        </p>
+      </div>
+
+      <div class="w3-container">
+        <h3 class="w3-text-teal">6. Normalize and serialize</h3>
+        <p>
+          <a href="https://drive.google.com/open?id=1fB4BMmewTI5-eNDI83mcOmIETPjVg56N">Click here</a> to download the
+          output for the 20 selected signs.
+        </p>
+        </p>
+      </div>
+
+
+      <div class="w3-container">
+        <p><em>If you encounter any problems downloading the above files, <a href="https://drive.google.com/open?id=1E6o_3n-edF3N8JQ94PxWliYTZaZDPsuJ">click
+              here</a> to explore the files directory.</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- END MAIN -->
+  </div>
+  
+  <div class="w3-container w3-theme-l1">
+    <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div>
+</body>
+
+</html>
