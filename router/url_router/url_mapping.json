@@ -1,6 +1,5 @@
 {
   "<blank>": "about:blank",
-  // "<fallback>": "",
 
   "asl-datasets": "https://github.com/amorim-cleison/asl-datasets-gen",
   "asl-datasets/paper": "https://arxiv.org/abs/2201.02065",
