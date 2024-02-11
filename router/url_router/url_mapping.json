@@ -2,7 +2,7 @@
   "<blank>": "about:blank",
 
   "asl-datasets": "https://github.com/amorim-cleison/asl-datasets-gen",
-  "asl-datasets/paper": "https://arxiv.org/abs/2201.02065",
+  "asl-datasets/paper": "asl-datasets/paper",
   "asl-datasets/preprint": "https://arxiv.org/abs/2201.02065",
 
   "asl-phono": "asl-datasets",
