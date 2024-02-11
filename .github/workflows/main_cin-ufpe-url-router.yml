@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure Functions: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python project to Azure Function App - cin-ufpe-url-router
+name: Deploy to Azure Function
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './router' # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.11' # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
@@ -22,22 +22,26 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Python version
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Create and start virtual environment
+        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
         run: |
-          python -m venv venv
-          source venv/bin/activate
+          python -m venv .venv
+          source .venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        working-directory: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
 
       # Optional: Add step to run tests here
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }} -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -45,7 +49,7 @@ jobs:
           name: python-app
           path: |
             release.zip
-            !venv/
+            !.venv/
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,6 +57,8 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-function.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -61,15 +67,21 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip release.zip     
+        
+      - name: Login to Azure
+        uses: Azure/login@v1.5.1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C8510ABCC4C04405A8DC41045DF14722 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B7D4203A592E4BCE903BAAD58CB5A8BC }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A549470CF2EB482796C953069D35A79C }}
 
       - name: 'Deploy to Azure Functions'
-        uses: Azure/functions-action@v1
+        uses: Azure/functions-action@v1.5.1
         id: deploy-to-function
         with:
-          app-name: 'cin-ufpe-url-router'
+          app-name: 'cca5-cin-ufpe-br'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_430C9890560F4063AB59ADBC4835E17F }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
