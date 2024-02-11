@@ -7,7 +7,7 @@
 
 <body>
     <?php
-    $routerUrl = "https://cca5-cin-ufpe-br.azurewebsites.net/api/url_router";
+    $routerUrl = "https://cin-ufpe-url-router.azurewebsites.net/api/url_router";
     $params = array(
         'originUrl' => $_SERVER['REQUEST_URI'],
     );
