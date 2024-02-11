@@ -4,7 +4,7 @@ import json
 import re
 
 ROOT = "~cca5"
-MAPPING_FILE = "url_mapping.json"
+MAPPING_FILE = "url_mapping.jsonc"
 FALLBACK_ROUTE = "<fallback>"
 
 

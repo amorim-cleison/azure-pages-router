@@ -1,14 +1,20 @@
 {
   "<blank>": "about:blank",
+  // "<fallback>": "",
 
   "asl-datasets": "https://github.com/amorim-cleison/asl-datasets-gen",
-  "asl-datasets/paper": "<blank>",
+  "asl-datasets/paper": "https://arxiv.org/abs/2201.02065",
+  "asl-datasets/preprint": "https://arxiv.org/abs/2201.02065",
 
   "asl-phono": "asl-datasets",
   "asl-phono/download": "https://doi.org/10.5281/zenodo.5484145",
+  "asl-phono/paper": "asl-datasets/paper",
+  "asl-phono/preprint": "asl-datasets/preprint",
 
   "asl-skeleton3d": "asl-datasets",
   "asl-skeleton3d/download": "https://doi.org/10.5281/zenodo.5484110",
+  "asl-skeleton3d/paper": "asl-datasets/paper",
+  "asl-skeleton3d/preprint": "asl-datasets/preprint",
 
   "asllvd-skeleton": "http://cin.ufpe.br/~cca5/asllvd-skeleton/index.html",
   "asllvd-skeleton-20": "http://cin.ufpe.br/~cca5/asllvd-skeleton-20/index.html",
