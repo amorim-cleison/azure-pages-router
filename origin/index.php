@@ -9,7 +9,7 @@
     <?php
     $routerUrl = "https://cin-ufpe-url-router.azurewebsites.net/api/url_router";
     $params = array(
-        'originUrl' => $_SERVER['REQUEST_URI'],
+        'o' => $_SERVER['REQUEST_URI'],
     );
     $targetUrl = $routerUrl . "?" . http_build_query($params);
 
