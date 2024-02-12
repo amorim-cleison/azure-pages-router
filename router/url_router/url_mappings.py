@@ -24,5 +24,5 @@ URL_MAPPINGS = {
     "st-gcn-sl": "https://github.com/amorim-cleison/st-gcn-sl",
     "st-gcn-sl/paper": "https://doi.org/10.1007/978-3-030-30493-5_59",
     "st-gcn-sl/preprint": "http://arxiv.org/abs/1901.11164",
-    "st-gcn-sl/weights": "http://cin.ufpe.br/~cca5/st-gcn-sl/weights/index.html"
+    "st-gcn-sl/weights": "https://github.com/amorim-cleison/st-gcn-sl"
 }
