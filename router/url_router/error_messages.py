@@ -2,9 +2,9 @@
 # User facing errors:
 TARGET_URL_NOT_FOUND = "Unable to locate the resource requested"
 
-ORIGIN_URL_PATH_FAILED_TO_PARSE = "Unable to parse the resource address provided"
+ORIGIN_URL_PATH_FAILED_TO_PARSE = "Invalid resource address provided"
 
-REQUEST_PARAMETER_MISSING = "The parameters needed to process your request are missing"
+REQUEST_PARAMETER_MISSING = "Required parameters are missing"
 
 
 # Internal erors:
