@@ -1,10 +1,10 @@
 
 # User facing errors:
-TARGET_URL_NOT_FOUND = "Unable to resolve the target URL for the route requested"
+TARGET_URL_NOT_FOUND = "Unable to locate the resource requested"
 
-ORIGIN_URL_PATH_FAILED_TO_PARSE = "Unable to properly parse the origin URL provided"
+ORIGIN_URL_PATH_FAILED_TO_PARSE = "Unable to parse the resource address provided"
 
-REQUEST_PARAMETER_MISSING = "Required parameters are missing in the request"
+REQUEST_PARAMETER_MISSING = "The parameters needed to process your request are missing"
 
 
 # Internal erors:
