@@ -1,6 +1,9 @@
 
 URL_MAPPINGS = {
     "<blank>": "about:blank",
+    "linkedin": "https://br.linkedin.com/in/cleisonamorim",
+
+    "masters-thesis": "https://attena.ufpe.br/handle/123456789/48566",
 
     "asl-datasets": "https://github.com/amorim-cleison/asl-datasets-gen",
     "asl-datasets/paper": "asl-datasets/paper",
@@ -20,7 +23,8 @@ URL_MAPPINGS = {
     "asllvd-skeleton-20": "http://cin.ufpe.br/~cca5/asllvd-skeleton-20/index.html",
 
     "sl-nlp": "https://github.com/amorim-cleison/sign-language-nlp",
-
+    "sl-nlp/paper": "masters-thesis",
+    
     "st-gcn-sl": "https://github.com/amorim-cleison/st-gcn-sl",
     "st-gcn-sl/paper": "https://doi.org/10.1007/978-3-030-30493-5_59",
     "st-gcn-sl/preprint": "http://arxiv.org/abs/1901.11164",
